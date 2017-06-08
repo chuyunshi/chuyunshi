@@ -1,0 +1,28 @@
+*{
+    margin:0;
+    padding:0;
+}
+ul li{
+    list-style: none;
+}
+.re{
+    position: relative;
+}
+.ab{
+    position: absolute;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.hidden{
+    overflow: hidden;
+}
+#canvas{
+    background: #000;
+}
+
+
+
