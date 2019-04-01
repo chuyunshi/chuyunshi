@@ -8,9 +8,29 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="shortcut icon" href="img/chu.ico">
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .anLiBg{
+        position: relative;
+        height: 100vh;
+        background-image: url('./img/anLi.jpg');
+        background-position: center;
+        background-size: cover;
+      }
+      #anLi{
+        position: absolute;
+        color: #f00;
+      }
+    </style>
 </head>
 <body>
-<span id="anLi"></span>
+  <div class="anLiBg">
+    <span id="anLi"></span>
+  </div>
+  
 <script>
 let anLi = document.getElementById("anLi")
 setInterval(() => {
