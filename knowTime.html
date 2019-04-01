@@ -36,7 +36,7 @@
     var anLi = document.getElementById("anLi")
     function getTime() {
       var nowTime = new Date().getTime()
-      var firstTime = 0
+      var firstTime = new Date('2019-03-24 19:58').getTime()
       var timeLength = nowTime - firstTime;
       var day = Math.floor(timeLength / (1000 * 60 * 60 * 24));
       var h = Math.floor((timeLength % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -51,7 +51,8 @@
       if (s <= 9) {
         s = '0' + s;
       };
-      anLi.innerHTML = day + '天' + h + '时' + min + '分' + s + '秒'
+      var str = day + '天' + h + '时' + min + '分' + s + '秒'
+      anLi.innerText = str;
     }
     getTime();
     setInterval(function() {
