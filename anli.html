@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0,minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="shortcut icon" href="img/chu.ico">
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .anLiBg{
+        position: relative;
+        height: 100vh;
+        
+        background-position: center;
+        background-size: cover;
+      }
+      #anLi{
+        position: absolute;
+        color: #f00;
+      }
+    </style>
+</head>
+<body>
+  <div class="anLiBg">
+    <span id="anLi"></span>
+  </div>
+  
+<script>
+  window.onload = function() {
+    var anLi = document.getElementById("anLi")
+    function getTime() {
+      var nowTime = new Date().getTime()
+      var firstTime = new Date('03/24/2019 19:58:00').getTime()
+      var timeLength = nowTime - firstTime;
+      var day = Math.floor(timeLength / (1000 * 60 * 60 * 24));
+      var h = Math.floor((timeLength % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var min = Math.floor(((timeLength % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) / (1000 * 60))
+      var s = Math.floor((((timeLength % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
+      if (h <= 9) {
+        h = '0' + h;
+      };
+      if (min <= 9) {
+        min = '0' + min;
+      };
+      if (s <= 9) {
+        s = '0' + s;
+      };
+      var str = day + '天' + h + '时' + min + '分' + s + '秒'
+      anLi.innerText = str;
+    }
+    getTime();
+    setInterval(function() {
+      getTime();
+    }, 1000)
+  }
+
+</script>
+</body>
+</html>
