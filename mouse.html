@@ -79,49 +79,43 @@ $(document).ready(function() {
         canvas.width = pageW;
         canvas2.height = pageH;
         canvas2.width = pageW;
-        ctx2.beginPath();
-        ctx2.arc(270, 265, 20, 0, 2*Math.PI);
-        ctx2.strokeStyle = "#f00";
-        ctx2.stroke();
         $("body,.page").height($(window).height()).width($(window).width());
       },
       onEvent: function() {
-        // document.addEventListener('mousewheel',function(event){
-        //   if(event.wheelDelta > 0) {
-        //     page.drawImage(true)
-        //   } else {
-        //     page.drawImage(false)
-        //   }
-        // })
-        // $('#stage').mousemove((ev) => {
-        //   // console.log(ev)
-        //   x = ev.clientX
-        //   y = ev.clientY - 100
-        //   x = x - cx
-        //   y = y - cy
-        //   pw = sw;
-        //   ph = sh
-        // })
-        // hammer.on('panstart', function(ev) { 
-        //   // console.log(ev)
-        //   movex = ev.center.x
-        //   movey = ev.center.y
+        document.addEventListener('mousewheel',function(event){
+          if(event.wheelDelta > 0) {
+            page.drawImage(true, 0.05)
+          } else {
+            page.drawImage(false, 0.05)
+          }
+        })
+        $('#stage').mousemove((ev) => {
+          x = ev.clientX
+          y = ev.clientY - 100
+          x = x - cx
+          y = y - cy
+          pw = sw;
+          ph = sh
+        })
+        hammer.on('panstart', function(ev) { 
+          movex = ev.center.x
+          movey = ev.center.y
 
-        // });
-        // hammer.on('panmove', function(ev) { 
-        //   movelx = ev.center.x - movex
-        //   movely = ev.center.y - movey
-        //   page.drawImage();
+        });
+        hammer.on('panmove', function(ev) { 
+          movelx = ev.center.x - movex
+          movely = ev.center.y - movey
+          page.drawImage();
 
-        // });
-        // hammer.on('panend', function(ev) { 
-        //   cx = cx + movelx
-        //   cy = cy + movely
-        //   rx = rx + movelx
-        //   ry = ry + movely
-        //   movelx = 0
-        //   movely = 0
-        // });
+        });
+        hammer.on('panend', function(ev) { 
+          cx = cx + movelx
+          cy = cy + movely
+          rx = rx + movelx
+          ry = ry + movely
+          movelx = 0
+          movely = 0
+        });
         hammer.get('pinch').set({
           enable: true
         });
