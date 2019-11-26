@@ -95,15 +95,15 @@ $(document).ready(function() {
             page.drawImage(false)
           }
         })
-        $('#stage').mousemove((ev) => {
-          // console.log(ev)
-          x = ev.clientX - 100
-          y = ev.clientY - 100
-          x = x - cx
-          y = y - cy
-          pw = sw;
-          ph = sh
-        })
+        // $('#stage').mousemove((ev) => {
+        //   // console.log(ev)
+        //   x = ev.clientX - 100
+        //   y = ev.clientY - 100
+        //   x = x - cx
+        //   y = y - cy
+        //   pw = sw;
+        //   ph = sh
+        // })
         hammer.on('panstart', function(ev) { 
           // console.log(ev)
           movex = ev.center.x
