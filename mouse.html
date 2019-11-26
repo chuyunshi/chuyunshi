@@ -71,7 +71,7 @@ $(document).ready(function() {
       resize:function(){
         // pageH = $(window).height();
         // pageW = $(window).width();
-        pageW = 414
+        pageW = $(window).width()
         pageH = 414
         sw = pageW;
         sh = pageH
@@ -144,7 +144,6 @@ $(document).ready(function() {
           y = y - cy;
           pw = sw;
           ph = sh;
-          
           if(thisLength - lastLength > 0.06 &&  lastLength != 0) {
             page.drawImage(true, 0.02)
           } else if(thisLength - lastLength < -0.06) {
@@ -154,6 +153,7 @@ $(document).ready(function() {
           }
           lastLength = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
         });
+
         hammer.on('pinchend', function(ev) { 
           cx = cx + movelx
           cy = cy + movely
