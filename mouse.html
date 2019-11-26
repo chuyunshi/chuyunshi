@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Demo</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      border:0;
+    }
+    .hide{
+      display: none;
+    }
+    .page {
+      overflow: hidden;
+    }
+  </style>
+ 
+</head>
+<body>
+<div id="stage" class="page">
+  <img id='img' class="hide" src="img/6.png" alt="">
+  <canvas id="canvas"></canvas>
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/hammer.min.js"></script>
+
+<script>
+  /**
+ * Created by chuyunshi on 17-05-31.
+ */
+$(document).ready(function(){
+    var pageH,pageW;
+    var canvas = document.getElementById("canvas");
+    var hammer = new Hammer(document.getElementById("canvas"));
+    var img=document.getElementById("img");
+    var ctx = canvas.getContext("2d");
+    var x = 0, y = 0, cx = 0, cy = 0, rx = 0, ry = 0;
+    var sw,sh,pw,ph
+    var movex,movey,movelx = 0,movely = 0
+    // 偷懒写的
+    setTimeout(() => {
+      page.drawImage()
+    },300)
+    
+    page={
+      init:function(){
+          page.resize();
+          page.onEvent();
+          
+      },
+      resize:function(){
+          pageH = $(window).height();
+          pageW = $(window).width();
+          sw = pageW;
+          sh = pageH
+          canvas.height=pageH;
+          canvas.width=pageW;
+          $("body,.page").height(pageH).width(pageW);
+      },
+      onEvent: function() {
+        document.addEventListener('mousewheel',function(event){
+          if(event.wheelDelta > 0) {
+            page.drawImage(true)
+          } else {
+            page.drawImage(false)
+          }
+        })
+        $('#canvas').mousemove((ev) => {
+          // console.log(ev)
+          x = ev.clientX
+          y = ev.clientY
+          x = x - cx
+          y = y - cy
+          pw = sw;
+          ph = sh
+        })
+        hammer.on('panstart', function(ev) { 
+          // console.log(ev)
+          movex = ev.center.x
+          movey = ev.center.y
+
+        });
+        hammer.on('panmove', function(ev) { 
+          movelx = ev.center.x - movex
+          movely = ev.center.y - movey
+          page.drawImage();
+
+        });
+        hammer.on('panend', function(ev) { 
+          cx = cx + movelx
+          cy = cy + movely
+          rx = rx + movelx
+          ry = ry + movely
+          movelx = 0
+          movely = 0
+        });
+        hammer.on('pinchmove', function(ev) { 
+          x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
+          y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
+          x = x - cx;
+          y = y - cy;
+          pw = sw;
+          ph = sh;
+          page.drawImage(true)
+        });
+        
+      },
+      drawImage: function(flag) {
+        if(flag === true) {
+          cx -= x * 0.08 
+          cy -= y * 0.08
+          rx += (pw - x) * 0.08
+          ry += (ph - y) * 0.08
+          sw = -cx + rx + pageW
+          sh = -cy + ry + pageH
+        } else if(flag === false) {
+          if(sw < 20) {
+            return false
+          }
+          cx += x * 0.08
+          cy += y * 0.08
+          rx -= (pw - x) * 0.08
+          ry -= (ph - y) * 0.08
+          sw = -cx + rx + pageW
+          sh = -cy + ry + pageH
+        }
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        ctx.drawImage(img, cx + movelx, cy + movely, sw, sh)
+      }
+    }
+    page.init();
+})
+</script>
+</body>
+</html>
