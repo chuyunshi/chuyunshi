@@ -77,26 +77,26 @@ $(document).ready(function(){
           pw = sw;
           ph = sh
         })
-        hammer.on('panstart', function(ev) { 
-          // console.log(ev)
-          movex = ev.center.x
-          movey = ev.center.y
+        // hammer.on('panstart', function(ev) { 
+        //   // console.log(ev)
+        //   movex = ev.center.x
+        //   movey = ev.center.y
 
-        });
-        hammer.on('panmove', function(ev) { 
-          movelx = ev.center.x - movex
-          movely = ev.center.y - movey
-          page.drawImage();
+        // });
+        // hammer.on('panmove', function(ev) { 
+        //   movelx = ev.center.x - movex
+        //   movely = ev.center.y - movey
+        //   page.drawImage();
 
-        });
-        hammer.on('panend', function(ev) { 
-          cx = cx + movelx
-          cy = cy + movely
-          rx = rx + movelx
-          ry = ry + movely
-          movelx = 0
-          movely = 0
-        });
+        // });
+        // hammer.on('panend', function(ev) { 
+        //   cx = cx + movelx
+        //   cy = cy + movely
+        //   rx = rx + movelx
+        //   ry = ry + movely
+        //   movelx = 0
+        //   movely = 0
+        // });
         hammer.on('pinchmove', function(ev) { 
           x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
           y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
