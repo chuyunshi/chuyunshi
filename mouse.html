@@ -124,6 +124,9 @@ $(document).ready(function() {
           movelx = 0
           movely = 0
         });
+        hammer.on('pinchstar', function(ev) { 
+          // alert(122)
+        });
         hammer.on('pinchmove', function(ev) { 
           x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
           y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
@@ -164,11 +167,19 @@ $(document).ready(function() {
         ctx2.clearRect(0, 0, canvas.width, canvas.height)
         ctx2.beginPath();
         var x1 = 370 * sw / pageW + cx + movelx
-        var x2 = 295 * sw / pageW + cy + movely
+        var y1 = 295 * sw / pageW + cy + movely
         var r = 20 * sw / pageW
-        ctx2.arc(x1, x2, r, 0, 2*Math.PI);
-        ctx2.strokeStyle = "#f00";
-        ctx2.stroke();
+        ctx2.arc(x1, y1, r, 0, 2*Math.PI);
+        var lx1 = 50 * sw / pageW + cx + movelx
+        var ly1 = 450 * sw / pageW + cy + movely
+        var lx2 = 250 * sw / pageW + cx + movelx
+        var ly2 = 340 * sw / pageW + cy + movely
+        ctx2.moveTo (lx1, ly1);
+        ctx2.lineTo (lx2, ly2);
+        ctx2.lineWidth = 2;          
+        ctx2.strokeStyle = "#f00" ;  
+        ctx2.stroke();               
+
       }
     }
     page.init();
