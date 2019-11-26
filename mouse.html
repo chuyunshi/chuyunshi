@@ -95,41 +95,41 @@ $(document).ready(function() {
             page.drawImage(false)
           }
         })
-        // $('#stage').mousemove((ev) => {
-        //   // console.log(ev)
-        //   x = ev.clientX - 100
-        //   y = ev.clientY - 100
-        //   x = x - cx
-        //   y = y - cy
-        //   pw = sw;
-        //   ph = sh
-        // })
-        hammer.on('panstart', function(ev) { 
+        $('#stage').mousemove((ev) => {
           // console.log(ev)
-          movex = ev.center.x
-          movey = ev.center.y
+          x = ev.clientX - 100
+          y = ev.clientY - 100
+          x = x - cx
+          y = y - cy
+          pw = sw;
+          ph = sh
+        })
+        // hammer.on('panstart', function(ev) { 
+        //   // console.log(ev)
+        //   movex = ev.center.x
+        //   movey = ev.center.y
 
-        });
-        hammer.on('panmove', function(ev) { 
-          movelx = ev.center.x - movex
-          movely = ev.center.y - movey
-          page.drawImage();
+        // });
+        // hammer.on('panmove', function(ev) { 
+        //   movelx = ev.center.x - movex
+        //   movely = ev.center.y - movey
+        //   page.drawImage();
 
-        });
-        hammer.on('panend', function(ev) { 
-          cx = cx + movelx
-          cy = cy + movely
-          rx = rx + movelx
-          ry = ry + movely
-          movelx = 0
-          movely = 0
-        });
+        // });
+        // hammer.on('panend', function(ev) { 
+        //   cx = cx + movelx
+        //   cy = cy + movely
+        //   rx = rx + movelx
+        //   ry = ry + movely
+        //   movelx = 0
+        //   movely = 0
+        // });
         hammer.on('pinchstar', function(ev) { 
           // alert(122)
         });
         hammer.on('pinchmove', function(ev) { 
-          x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
-          y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
+          x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2 - 100;
+          y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2 - 100;
           x = x - cx;
           y = y - cy;
           pw = sw;
