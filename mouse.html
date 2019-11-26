@@ -154,10 +154,19 @@ $(document).ready(function(){
         }
         ctx.clearRect(0,0,canvas.width,canvas.height)
         ctx.drawImage(img, cx + movelx, cy + movely, sw, sh)
-        canvas2.style.top = 100 + cy + movely + 'px'
-        canvas2.style.left = 100 + cx + movelx + 'px'
-        canvas2.style.width = sw + "px";
-        canvas2.style.height = sh + 'px';
+        // canvas2.style.top = 100 + cy + movely + 'px'
+        // canvas2.style.left = 100 + cx + movelx + 'px'
+        // canvas2.style.width = sw + "px";
+        // canvas2.style.height = sh + 'px';
+        ctx2.clearRect(0,0,canvas.width,canvas.height)
+        ctx2.beginPath();
+        var x1 = 370*sw/500 + cx + movelx
+        var x2 = 295*sw/500 + cy + movely
+        var r = 20 * sw/500
+        ctx2.arc(x1,x2,r,0,2*Math.PI);
+        ctx2.strokeStyle = "#f00";
+        ctx2.stroke();
+
        
       }
     }
