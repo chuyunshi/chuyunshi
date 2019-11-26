@@ -46,44 +46,42 @@
   /**
  * Created by chuyunshi on 17-05-31.
  */
-$(document).ready(function(){
-    var pageH,pageW;
+$(document).ready(function() {
+    var pageH, pageW;
     var canvas = document.getElementById("canvas");
     var canvas2 = document.getElementById("canvas2");
     var hammer = new Hammer(document.getElementById("stage"));
-    var img=document.getElementById("img");
+    var img = document.getElementById("img");
     var ctx = canvas.getContext("2d");
     var ctx2 = canvas2.getContext("2d");
     var x = 0, y = 0, cx = 0, cy = 0, rx = 0, ry = 0;
-    var sw,sh,pw,ph
-    var movex,movey,movelx = 0,movely = 0
+    var sw, sh, pw, ph
+    var movex, movey, movelx = 0, movely = 0
     // 偷懒写的
     setTimeout(() => {
       page.drawImage()
-    },300)
-    
+    }, 300)
     page={
       init:function(){
-          page.resize();
-          page.onEvent();
-          
+        page.resize();
+        page.onEvent();
       },
       resize:function(){
-          // pageH = $(window).height();
-          // pageW = $(window).width();
-          pageW = 500
-          pageH = 500
-          sw = pageW;
-          sh = pageH
-          canvas.height=pageW;
-          canvas.width=pageW;
-          canvas2.height=pageW;
-          canvas2.width=pageW;
-          ctx2.beginPath();
-          ctx2.arc(370,295,20,0,2*Math.PI);
-          ctx2.strokeStyle = "#f00";
-          ctx2.stroke();
-          $("body,.page").height($(window).height()).width($(window).width());
+        // pageH = $(window).height();
+        // pageW = $(window).width();
+        pageW = 500
+        pageH = 500
+        sw = pageW;
+        sh = pageH
+        canvas.height = pageH;
+        canvas.width = pageW;
+        canvas2.height = pageH;
+        canvas2.width = pageW;
+        ctx2.beginPath();
+        ctx2.arc(370, 295, 20, 0, 2*Math.PI);
+        ctx2.strokeStyle = "#f00";
+        ctx2.stroke();
+        $("body,.page").height($(window).height()).width($(window).width());
       },
       onEvent: function() {
         document.addEventListener('mousewheel',function(event){
@@ -135,7 +133,7 @@ $(document).ready(function(){
       },
       drawImage: function(flag) {
         if(flag === true) {
-          cx -= x * 0.08 
+          cx -= x * 0.08
           cy -= y * 0.08
           rx += (pw - x) * 0.08
           ry += (ph - y) * 0.08
@@ -152,22 +150,20 @@ $(document).ready(function(){
           sw = -cx + rx + pageW
           sh = -cy + ry + pageH
         }
-        ctx.clearRect(0,0,canvas.width,canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
         ctx.drawImage(img, cx + movelx, cy + movely, sw, sh)
         // canvas2.style.top = 100 + cy + movely + 'px'
         // canvas2.style.left = 100 + cx + movelx + 'px'
         // canvas2.style.width = sw + "px";
         // canvas2.style.height = sh + 'px';
-        ctx2.clearRect(0,0,canvas.width,canvas.height)
+        ctx2.clearRect(0, 0, canvas.width, canvas.height)
         ctx2.beginPath();
-        var x1 = 370*sw/500 + cx + movelx
-        var x2 = 295*sw/500 + cy + movely
-        var r = 20 * sw/500
-        ctx2.arc(x1,x2,r,0,2*Math.PI);
+        var x1 = 370 * sw / pageW + cx + movelx
+        var x2 = 295 * sw / pageW + cy + movely
+        var r = 20 * sw / pageW
+        ctx2.arc(x1, x2, r, 0, 2*Math.PI);
         ctx2.strokeStyle = "#f00";
         ctx2.stroke();
-
-       
       }
     }
     page.init();
