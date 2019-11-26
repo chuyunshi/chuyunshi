@@ -30,11 +30,15 @@
       top: 100px;
       left: 100px;
     }
+    .hhhe {
+      position: fixed;
+    }
   </style>
  
 </head>
 <body>
 <div id="stage" class="page">
+  <span class="hhhe">123123</span>
   <img id='img' class="hide" src="img/6.png" alt="">
   <canvas id="canvas"></canvas>
   <canvas id="canvas2"></canvas>
@@ -120,15 +124,16 @@ $(document).ready(function() {
           movelx = 0
           movely = 0
         });
-//         hammer.on('pinchmove', function(ev) { 
-//           x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
-//           y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
-//           x = x - cx;
-//           y = y - cy;
-//           pw = sw;
-//           ph = sh;
-//           page.drawImage(true)
-//         });
+        hammer.on('pinchmove', function(ev) { 
+          x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
+          y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
+          x = x - cx;
+          y = y - cy;
+          pw = sw;
+          ph = sh;
+          $(".hhhe").text(x + '---' + y)
+          page.drawImage(true)
+        });
         
       },
       drawImage: function(flag) {
