@@ -16,6 +16,20 @@
     .page {
       overflow: hidden;
     }
+    #canvas {
+      margin-left: 100px;
+      margin-top: 100px;
+      border: 1px solid #333;
+    }
+    #stage {
+      position: relative;
+    }
+    #canvas2 {
+      position: absolute;
+      border: 1px solid #f00;
+      top: 100px;
+      left: 100px;
+    }
   </style>
  
 </head>
@@ -23,6 +37,7 @@
 <div id="stage" class="page">
   <img id='img' class="hide" src="img/6.png" alt="">
   <canvas id="canvas"></canvas>
+  <canvas id="canvas2"></canvas>
 </div>
 <script src="js/zepto.min.1.js"></script>
 <script src="js/hammer.min.js"></script>
@@ -34,9 +49,11 @@
 $(document).ready(function(){
     var pageH,pageW;
     var canvas = document.getElementById("canvas");
-    var hammer = new Hammer(document.getElementById("canvas"));
+    var canvas2 = document.getElementById("canvas2");
+    var hammer = new Hammer(document.getElementById("stage"));
     var img=document.getElementById("img");
     var ctx = canvas.getContext("2d");
+    var ctx2 = canvas2.getContext("2d");
     var x = 0, y = 0, cx = 0, cy = 0, rx = 0, ry = 0;
     var sw,sh,pw,ph
     var movex,movey,movelx = 0,movely = 0
@@ -52,13 +69,21 @@ $(document).ready(function(){
           
       },
       resize:function(){
-          pageH = $(window).height();
-          pageW = $(window).width();
+          // pageH = $(window).height();
+          // pageW = $(window).width();
+          pageW = 500
+          pageH = 500
           sw = pageW;
           sh = pageH
-          canvas.height=pageH;
+          canvas.height=pageW;
           canvas.width=pageW;
-          $("body,.page").height(pageH).width(pageW);
+          canvas2.height=pageW;
+          canvas2.width=pageW;
+          ctx2.beginPath();
+          ctx2.arc(370,295,20,0,2*Math.PI);
+          ctx2.strokeStyle = "#f00";
+          ctx2.stroke();
+          $("body,.page").height($(window).height()).width($(window).width());
       },
       onEvent: function() {
         document.addEventListener('mousewheel',function(event){
@@ -68,44 +93,44 @@ $(document).ready(function(){
             page.drawImage(false)
           }
         })
-        $('#canvas').mousemove((ev) => {
+        $('#stage').mousemove((ev) => {
           // console.log(ev)
-          x = ev.clientX
-          y = ev.clientY
+          x = ev.clientX - 100
+          y = ev.clientY - 100
           x = x - cx
           y = y - cy
           pw = sw;
           ph = sh
         })
-        // hammer.on('panstart', function(ev) { 
-        //   // console.log(ev)
-        //   movex = ev.center.x
-        //   movey = ev.center.y
+        hammer.on('panstart', function(ev) { 
+          // console.log(ev)
+          movex = ev.center.x
+          movey = ev.center.y
 
-        // });
-        // hammer.on('panmove', function(ev) { 
-        //   movelx = ev.center.x - movex
-        //   movely = ev.center.y - movey
-        //   page.drawImage();
-
-        // });
-        // hammer.on('panend', function(ev) { 
-        //   cx = cx + movelx
-        //   cy = cy + movely
-        //   rx = rx + movelx
-        //   ry = ry + movely
-        //   movelx = 0
-        //   movely = 0
-        // });
-        hammer.on('pinchmove', function(ev) { 
-          x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
-          y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
-          x = x - cx;
-          y = y - cy;
-          pw = sw;
-          ph = sh;
-          page.drawImage(true)
         });
+        hammer.on('panmove', function(ev) { 
+          movelx = ev.center.x - movex
+          movely = ev.center.y - movey
+          page.drawImage();
+
+        });
+        hammer.on('panend', function(ev) { 
+          cx = cx + movelx
+          cy = cy + movely
+          rx = rx + movelx
+          ry = ry + movely
+          movelx = 0
+          movely = 0
+        });
+//         hammer.on('pinchmove', function(ev) { 
+//           x = (e.pointers[0].clientX + e.pointers[1].clientX) / 2;
+//           y = (e.pointers[0].clientY + e.pointers[1].clientY) / 2;
+//           x = x - cx;
+//           y = y - cy;
+//           pw = sw;
+//           ph = sh;
+//           page.drawImage(true)
+//         });
         
       },
       drawImage: function(flag) {
@@ -129,6 +154,11 @@ $(document).ready(function(){
         }
         ctx.clearRect(0,0,canvas.width,canvas.height)
         ctx.drawImage(img, cx + movelx, cy + movely, sw, sh)
+        canvas2.style.top = 100 + cy + movely + 'px'
+        canvas2.style.left = 100 + cx + movelx + 'px'
+        canvas2.style.width = sw + "px";
+        canvas2.style.height = sh + 'px';
+       
       }
     }
     page.init();
